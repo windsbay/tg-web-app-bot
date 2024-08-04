@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mysql": "^2.18.1",
+    "mysqli": "^3.1.4",
     "node-telegram-bot-api": "^0.66.0",
     "nodemon": "^3.1.4"
   }

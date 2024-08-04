@@ -18,9 +18,10 @@ conn.connect(err => {
     }
 });
 
-const token = '7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8';
+const TOKEN = '7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8';
+const webAppUrl = 'https://fancy-strudel-fdacc6.netlify.app/';
 
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(TOKEN, {polling: true});
 
 
 bot.on('message', async (msg) => {
