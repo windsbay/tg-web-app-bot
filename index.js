@@ -1,28 +1,28 @@
-const TelegramBot = require('node-telegram-bot-api');
-const mysql = require('mysql');
+require('rootpath')();
+import express from 'express';
+const app = express();
+import cors from 'cors';
+const errorHandler = require('_middleware/error-handler');
+import TelegramBot from 'node-telegram-bot-api';
+import Config from './config.json';
 
-const conn = mysql.createConnection({
-    host: 'mysql.b559fbfa7208.hosting.myjino.ru',
-    port: 3306,
-    user: 'j03809714_modman',
-    password: "aLeksey2011!",
-    database: 'j03809714_modmancomm'
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-conn.connect(err => {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log('Connected to DATABASE');
-    }
-});
+// api routes
+app.use('/users', require('/users/user.controller'));
 
-const TOKEN = '7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8';
+// global error handler
+app.use(errorHandler);
+
+// start server
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+app.listen(port, () => console.log('Server listening on port ' + port));
+
+//// Telegramm /////
+const bot = new TelegramBot(Config.bot.token, {polling: true});
 const webAppUrl = 'https://fancy-strudel-fdacc6.netlify.app/';
-
-const bot = new TelegramBot(TOKEN, {polling: true});
-
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
@@ -31,7 +31,5 @@ bot.on('message', async (msg) => {
     {
         await bot.sendMessage(chatId, 'Received your message');
     }
-
-
 });
 

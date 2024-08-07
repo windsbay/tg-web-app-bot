@@ -1,0 +1,12 @@
+{
+  "database": {
+    "host": "mysql.b559fbfa7208.hosting.myjino.ru",
+    "port": 3306,
+    "user": "j03809714_modman",
+    "password": "aLeksey2011!",
+    "database": "j03809714_modmancomm"
+  },
+  "bot": {
+    "token": "7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8"
+  }
+}
