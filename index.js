@@ -1,10 +1,10 @@
-require('rootpath')();
-import express from 'express';
+
+const express = require('express');
 const app = express();
-import cors from 'cors';
+const cors = require('cors');
 const errorHandler = require('_middleware/error-handler');
-import TelegramBot from 'node-telegram-bot-api';
-import Config from './config.json';
+const TelegramBot = require('node-telegram-bot-api');
+const config = require('./config.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +21,7 @@ const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 
 app.listen(port, () => console.log('Server listening on port ' + port));
 
 //// Telegramm /////
-const bot = new TelegramBot(Config.bot.token, {polling: true});
+const bot = new TelegramBot(config.bot.token, {polling: true});
 const webAppUrl = 'https://fancy-strudel-fdacc6.netlify.app/';
 
 bot.on('message', async (msg) => {
