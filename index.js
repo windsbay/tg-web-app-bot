@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // api routes
-app.use('/users', require('/users/user.controller'));
+app.use('/users', require('/users/user.controller.js'));
 
 // global error handler
 app.use(errorHandler);
