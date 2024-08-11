@@ -1,27 +1,19 @@
-require('rootpath')();
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const errorHandler = require('_middleware/error-handler');
+const express =  require('express');
 const TelegramBot = require('node-telegram-bot-api');
-const config = require('./config.json');
+const userRouter = require('./routes/user.routes');
+
+const PORT = process.env.PORT || 5000;
+const token = "7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8";
+const app = express()
+
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
-// api routes
-app.use('/users', require('/users/user.controller.js'));
+app.use('/api', userRouter)
 
-// global error handler
-app.use(errorHandler);
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
-// start server
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
-app.listen(port, () => console.log('Server listening on port ' + port));
-
-//// Telegramm /////
-const bot = new TelegramBot(config.bot.token, {polling: true});
+const bot = new TelegramBot(token, {polling: true});
 const webAppUrl = 'https://fancy-strudel-fdacc6.netlify.app/';
 
 bot.on('message', async (msg) => {
@@ -29,7 +21,13 @@ bot.on('message', async (msg) => {
     const  text = msg.text;
     if(text === "/start")
     {
-        await bot.sendMessage(chatId, 'Received your message');
+
+        await bot.sendMessage(chatId, 'Received your message', {
+            reply_markup:{
+                inline_keyboard: [
+                    [{text: 'Open App', web_app:{url: webAppUrl}}]
+                ]
+            }
+        });
     }
 });
-
