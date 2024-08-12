@@ -1,6 +1,9 @@
 const express =  require('express');
 const TelegramBot = require('node-telegram-bot-api');
 const userRouter = require('./routes/user.routes');
+const pool = require('./_helpers/db');
+const {Pool} = require("pg");
+
 
 const PORT = process.env.PORT || 5000;
 const token = "7400849110:AAH4L-pCrJIHGhUBSHa2k4h6m0zzmQQ8rY8";

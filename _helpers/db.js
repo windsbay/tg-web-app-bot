@@ -7,5 +7,18 @@ const pool = new Pool({
     database: "modman_comm"
 })
 
+check()
+
+async function check(){
+    try {
+        const res = await pool.query(`SELECT * FROM users`);
+        console.log('Successfully connected to the database');
+        console.log(res.rows[0])
+    } catch (error) {
+        console.error('Error to connection', error);
+    }
+}
+
+
 
 module.exports = pool
